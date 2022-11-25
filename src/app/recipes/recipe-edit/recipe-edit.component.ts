@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray,FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute ,Params, Router} from '@angular/router';
-import { ingredientsModel } from 'src/app/shared/ingredient.model';
 import { RecipeModel } from '../recipe.model';
 import { RecipeService } from '../recipes.service';
 
@@ -13,7 +12,7 @@ import { RecipeService } from '../recipes.service';
 export class RecipeEditComponent implements OnInit {
   id!:number;
   editMode = false
-  recipeForm!:FormGroup;
+  recipeForm!:FormGroup
   constructor(private route:ActivatedRoute,
     private recipeService:RecipeService,
     private router:Router) { }
