@@ -1,4 +1,4 @@
-import { Component, ComponentRef, OnDestroy, ViewChild } from "@angular/core";
+import { Component, OnDestroy, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Observable, Subscription } from "rxjs";
@@ -16,8 +16,11 @@ export class AuthComponent implements OnDestroy{
     isLoading = false;
     error:string = null!;
     private closeSub!:Subscription;
+
     @ViewChild(placeHolderDirective) alertHost!:placeHolderDirective
+    
     constructor(private authService:AuthService,private router:Router){}
+    
     onSwitchMode(){
         this.isLoginMode = !this.isLoginMode
     }
@@ -56,21 +59,22 @@ export class AuthComponent implements OnDestroy{
         onHandleError(){
             this.error = null!;
         }
-ngOnDestroy(){
-    this.closeSub.unsubscribe()
-}
-private showErrorAlert(msg:string){
-    
-   const hostViewContainerRef = this.alertHost.viewContainerRef;
-   
-  const componentRef = hostViewContainerRef.createComponent(AlertComponent)
-   componentRef.instance.message = msg;
-    this.closeSub =  componentRef.instance.close.subscribe(
-        () => {
+        private showErrorAlert(msg:string){
+            
+            const hostViewContainerRef = this.alertHost.viewContainerRef;
+            
+            const componentRef = hostViewContainerRef.createComponent(AlertComponent)
+            componentRef.instance.message = msg;
+            this.closeSub =  componentRef.instance.close.subscribe(
+                () => {
             this.closeSub.unsubscribe()
             hostViewContainerRef.clear()
         }
-    )
-
-}        
+        )
+        
+    }
+    ngOnDestroy(){
+        // this.closeSub.unsubscribe()
+    }
+        
 }
